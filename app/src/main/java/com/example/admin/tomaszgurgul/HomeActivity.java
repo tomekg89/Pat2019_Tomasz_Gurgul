@@ -26,31 +26,24 @@ public class HomeActivity extends AppCompatActivity {
             ".{8,}" +               //at least 4 characters
             "$");
 
-    Button LoginBtn;
     EditText emailEditText, passwordEditText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        LoginBtn = (Button) findViewById(R.id.loginButton);
-        emailEditText = (EditText) findViewById(R.id.emailEditText);
-        passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-
-        // login button and intent to user profile
-        LoginBtn.setOnClickListener(new View.OnClickListener() {
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkEmail();
                 checkPassword();
-                Login();
+                login();
 
             }
         });
     }
-
     // check if email is correct
     private boolean checkEmail() {
         String emailInput = emailEditText.getText().toString().trim();
@@ -65,7 +58,6 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     }
-
     // check if password is strong enought
     private boolean checkPassword() {
         String passwordInput = passwordEditText.getText().toString().trim();
@@ -80,10 +72,9 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     }
-
-    // check if email and password are true, save sharedprefs, intent to  UserProfileActivity
-    private void Login() {
-        if (checkEmail() && checkPassword() == true) {
+    // check if email and password are correct, save sharedprefs, intent to  UserProfileActivity
+    private void login() {
+        if (checkEmail() && checkPassword()) {
             Intent userProfileIntent = new Intent(HomeActivity.this, UserProfileActivity.class);
             startActivity(userProfileIntent);
             finish();
@@ -91,13 +82,10 @@ public class HomeActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("loggedin", "yes");
             editor.apply();
-
         } else {
             Toast.makeText(this, "Something is wrong :)", Toast.LENGTH_LONG).show();
         }
     }
-
-    //close app on back button pressed
     @Override
     public void onBackPressed() {
         super.onBackPressed();

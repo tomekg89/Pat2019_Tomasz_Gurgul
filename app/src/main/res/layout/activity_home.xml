@@ -13,12 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:text="Email:"
+        android:text="@string/email"
         android:layout_above="@id/emailEditText"
         />
-
     <EditText
         android:id="@+id/emailEditText"
+        android:autofillHints="email"
+        android:labelFor="@id/emailEditText"
+        tools:targetApi="o"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_centerInParent="true"
@@ -32,11 +34,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_below="@id/emailEditText"
-        android:text="Password:" />
-
+        android:text="@string/password"
+        />
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="200dp"
+        android:labelFor="@id/passwordEditText"
+        android:autofillHints="password"
+        tools:targetApi="o"
         android:layout_height="40dp"
         android:layout_alignStart="@+id/emailEditText"
         android:ems="10"
@@ -48,9 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:text="Login"
-        android:layout_below="@id/passwordEditText"/>
-
-
-
+        android:text="@string/loginButton"
+        android:layout_below="@id/passwordEditText"
+        />
 </RelativeLayout>

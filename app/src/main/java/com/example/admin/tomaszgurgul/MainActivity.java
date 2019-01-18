@@ -23,15 +23,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         handler.removeCallbacksAndMessages(null);
-        Toast.makeText(this, "Intent anulowany", Toast.LENGTH_LONG).show();
     }
-    //splash screen intent to HomeActivity - login user
     public void splashScreen() {
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(userProfileIntent);
             finish();
             Toast.makeText(this, "User already logged in", Toast.LENGTH_LONG).show();
-
         } else {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -57,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     splashScreen();
                 }
             }, spash_time);
-
         }
-
     }
 }
 
