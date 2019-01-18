@@ -25,7 +25,6 @@ public class HomeActivity extends AppCompatActivity {
             "(?=\\S+$)" +           //no white spaces
             ".{8,}" +               //at least 4 characters
             "$");
-
     EditText emailEditText, passwordEditText;
 
     @Override
@@ -40,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
                 checkEmail();
                 checkPassword();
                 login();
-
             }
         });
     }

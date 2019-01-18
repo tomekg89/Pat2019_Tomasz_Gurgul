@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(userProfileIntent);
             finish();
             Toast.makeText(this, "User already logged in", Toast.LENGTH_LONG).show();
+
         } else {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -53,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                     splashScreen();
                 }
             }, spash_time);
+
         }
+
     }
 }
 
