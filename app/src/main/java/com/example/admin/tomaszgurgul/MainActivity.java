@@ -18,7 +18,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private static int spash_time = 5000;
     private Handler handler;
-    private boolean loggedIn;
 
     // cancel splash screen on back button pressed
     @Override
