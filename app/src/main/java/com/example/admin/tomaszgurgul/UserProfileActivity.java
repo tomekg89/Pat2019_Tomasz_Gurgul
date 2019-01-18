@@ -37,7 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void logout() {
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("loggedin", "no");
-        editor.apply();
+        editor.clear().apply();
+
     }
 }

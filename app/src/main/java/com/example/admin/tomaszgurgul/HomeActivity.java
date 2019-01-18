@@ -78,7 +78,7 @@ public class HomeActivity extends AppCompatActivity {
             finish();
             SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("loggedin", "yes");
+            editor.putBoolean("loggedin", true);
             editor.apply();
         } else {
             Toast.makeText(this, "Something is wrong :)", Toast.LENGTH_LONG).show();

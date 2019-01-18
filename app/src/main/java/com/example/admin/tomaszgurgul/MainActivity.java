@@ -18,8 +18,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private static int spash_time = 5000;
     private Handler handler;
+    private boolean loggedIn;
 
-// cancel splash screen on back button pressed
+    // cancel splash screen on back button pressed
     @Override
     public void onBackPressed() {
         handler.removeCallbacksAndMessages(null);
@@ -35,17 +36,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         checkIfLogged();
     }
-// check if user is already logged in - if yes intent to UserProfileActivity, else splash screen and HomeActivity
+    // check if user is already logged in
     private void checkIfLogged() {
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        String loggedIn = sharedPreferences.getString("loggedin", "");
-
-        if (loggedIn.equals("yes")) {
-            Intent userProfileIntent = new Intent(MainActivity.this, UserProfileActivity.class);
-            startActivity(userProfileIntent);
-            finish();
-            Toast.makeText(this, "User already logged in", Toast.LENGTH_LONG).show();
-
+        boolean isLogged = sharedPreferences.getBoolean("loggedin", false);
+        if (isLogged) {
+            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+            startActivity(intent);
         } else {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -54,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     splashScreen();
                 }
             }, spash_time);
-
         }
-
     }
 }
 
