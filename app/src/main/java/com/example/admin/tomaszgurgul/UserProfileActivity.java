@@ -11,18 +11,15 @@ import android.widget.Toast;
 
 public class UserProfileActivity extends AppCompatActivity {
     Button logoutButton;
-
     //close app on back button pressed
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
         findViewById(R.id.logoutButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,11 +30,10 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
     }
-    // logout user, set sharefprefs key to no
+    // logout user - clear sharedpreferences
     private void logout() {
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear().apply();
-
     }
 }
