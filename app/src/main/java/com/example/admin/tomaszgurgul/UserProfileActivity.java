@@ -3,6 +3,7 @@ package com.example.admin.tomaszgurgul;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserProfileActivity extends AppCompatActivity {
-    Button logoutButton;
+    FloatingActionButton logoutFab;
     RecyclerView recyclerView;
     List<Array> jsonLists;
     RecyclerViewAdapter recyclerViewAdapter;
@@ -33,7 +34,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        findViewById(R.id.logoutButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.logoutFAB).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
