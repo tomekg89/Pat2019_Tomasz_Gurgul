@@ -29,6 +29,7 @@ public class ValidatorHelper {
             return true;
         }
     }
+
     public static boolean checkPassword(EditText passwordEditText) {
         Pattern PASSWORD_PATTERN = ValidatorHelper.PASSWORD_PATTERN;
         String passwordInput = passwordEditText.getText().toString().trim();

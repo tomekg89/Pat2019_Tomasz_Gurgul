@@ -1,5 +1,6 @@
 package com.example.admin.tomaszgurgul;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,14 +23,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserProfileActivity extends AppCompatActivity {
-    FloatingActionButton logoutFab;
     RecyclerView recyclerView;
     List<Array> jsonLists;
     RecyclerViewAdapter recyclerViewAdapter;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,39 +45,41 @@ public class UserProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.myjson.com/bins/")
-                .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit = builder.build();
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Array> call = apiInterface.getList();
-      call.enqueue(new Callback<Array>() {
-          @Override
-          public void onResponse(Call<Array> call, Response<Array> response) {
-
-              if (response.isSuccessful()) {
-
-                 List<Array> arrays= response.body().getArray();
-                 recyclerView = (RecyclerView) findViewById(R.id.jsonListRecyclerView);
-                  LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                  recyclerView.setLayoutManager(layoutManager);
-                  recyclerViewAdapter =new RecyclerViewAdapter(getApplicationContext(), arrays);
-                    recyclerView.setAdapter(recyclerViewAdapter);
-
-
-              }
-          }
-
-          @Override
-          public void onFailure(Call<Array> call, Throwable t) {
-              Toast.makeText(UserProfileActivity.this, "Error...", Toast.LENGTH_SHORT).show();
-          }
-      });
-
-
+        showJson();
     }
+ public void showJson()
+        {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<Array> call = apiInterface.getList();
+            final ProgressDialog progressDoalog;
+            progressDoalog = new ProgressDialog(UserProfileActivity.this);
+            progressDoalog.setMax(100);
+            progressDoalog.setMessage("Loading...");
+            progressDoalog.setTitle("Loading json");
+            progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDoalog.show();
+            call.enqueue(new Callback<Array>() {
+                @Override
+                public void onResponse(Call<Array> call, Response<Array> response) {
+                    if (response.isSuccessful()) {
+                        List<Array> arrays = response.body().getArray();
+                        recyclerView = (RecyclerView) findViewById(R.id.jsonListRecyclerView);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                        recyclerView.setLayoutManager(layoutManager);
+                        recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), arrays);
+                        recyclerView.setAdapter(recyclerViewAdapter);
+                        progressDoalog.dismiss();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Array> call, Throwable t) {
+                    Toast.makeText(UserProfileActivity.this, "Error...", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
     // logout user - clear sharedpreferences
     private void logout() {
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);

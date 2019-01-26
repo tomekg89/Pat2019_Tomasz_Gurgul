@@ -8,15 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.myViewHolder> {
-
     private Context context;
     private List<Array> arrays;
 
@@ -27,19 +23,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view;
+        View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.layout_itemlist, parent, false);
         return new myViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
-holder.titleTextView.setText(arrays.get(position).getTitle());
-holder.descTextView.setText(arrays.get(position).getDesc());
-Picasso.with(holder.itemView.getContext()).load(arrays.get(position).getUrl()).into(holder.imageUrlImageView);
-
+        holder.titleTextView.setText(arrays.get(position).getTitle());
+        holder.descTextView.setText(arrays.get(position).getDesc());
+        Picasso.with(holder.itemView.getContext()).load(arrays.get(position).getUrl()).into(holder.imageUrlImageView);
     }
 
     @Override
@@ -48,20 +42,17 @@ Picasso.with(holder.itemView.getContext()).load(arrays.get(position).getUrl()).i
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
-       TextView titleTextView;
-       TextView descTextView;
-       ImageView imageUrlImageView;
+        TextView titleTextView;
+        TextView descTextView;
+        ImageView imageUrlImageView;
 
-    public myViewHolder(View itemView) {
-        super(itemView);
-titleTextView = itemView.findViewById(R.id.titleTextView);
-descTextView = itemView.findViewById(R.id.descTextView);
-imageUrlImageView = itemView.findViewById(R.id.imageUrlImageView);
-
-
-
+        public myViewHolder(View itemView) {
+            super(itemView);
+            titleTextView = itemView.findViewById(R.id.titleTextView);
+            descTextView = itemView.findViewById(R.id.descTextView);
+            imageUrlImageView = itemView.findViewById(R.id.imageUrlImageView);
+        }
     }
-}
 
 
 }

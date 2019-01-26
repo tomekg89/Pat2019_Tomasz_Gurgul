@@ -10,18 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class HomeActivity extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
     RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +26,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ValidatorHelper.checkEmail(emailEditText);
-               ValidatorHelper.checkPassword(passwordEditText);
+                ValidatorHelper.checkPassword(passwordEditText);
                 login();
             }
         });
-
     }
+
     private void login() {
         if (ValidatorHelper.checkEmail(emailEditText) && ValidatorHelper.checkPassword(passwordEditText)) {
             Intent userProfileIntent = new Intent(HomeActivity.this, UserProfileActivity.class);
@@ -52,12 +45,11 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "Something is wrong :)", Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
 
 
 }
