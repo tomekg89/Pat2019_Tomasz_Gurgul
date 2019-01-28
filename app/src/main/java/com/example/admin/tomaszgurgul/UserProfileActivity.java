@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.Collections;
@@ -24,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserProfileActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<Array> jsonLists;
+    List<Array.Array_> arrays;
     RecyclerViewAdapter recyclerViewAdapter;
 
     @Override
@@ -32,10 +33,20 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+Retrofit.Builder builder = new Retrofit.Builder()
+        .baseUrl("https://api.myjson.com/bins/")
+        .addConverterFactory(GsonConverterFactory.create());
+    Retrofit retrofit = builder.build();
+    ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+    Call<Array> call = apiInterface.getList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        recyclerView = (RecyclerView) findViewById(R.id.jsonListRecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
         findViewById(R.id.logoutFAB).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,29 +57,16 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
         showJson();
+
     }
- public void showJson()
-        {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Call<Array> call = apiInterface.getList();
-            final ProgressDialog progressDoalog;
-            progressDoalog = new ProgressDialog(UserProfileActivity.this);
-            progressDoalog.setMax(100);
-            progressDoalog.setMessage("Loading...");
-            progressDoalog.setTitle("Loading json");
-            progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDoalog.show();
+ public void showJson() {
             call.enqueue(new Callback<Array>() {
                 @Override
                 public void onResponse(Call<Array> call, Response<Array> response) {
                     if (response.isSuccessful()) {
-                        List<Array> arrays = response.body().getArray();
-                        recyclerView = (RecyclerView) findViewById(R.id.jsonListRecyclerView);
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        recyclerView.setLayoutManager(layoutManager);
+                    arrays = response.body().getArray();
                         recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), arrays);
                         recyclerView.setAdapter(recyclerViewAdapter);
-                        progressDoalog.dismiss();
                     }
                 }
 
@@ -78,7 +76,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
             });
         }
-
 
     // logout user - clear sharedpreferences
     private void logout() {

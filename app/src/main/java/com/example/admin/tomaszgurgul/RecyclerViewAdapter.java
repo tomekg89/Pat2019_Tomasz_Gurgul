@@ -12,25 +12,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.myViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context context;
-    private List<Array> arrays;
+    private List<Array.Array_> arrays;
 
-    public RecyclerViewAdapter(Context context, List<Array> arrays) {
+    public RecyclerViewAdapter(Context context, List<Array.Array_> arrays) {
         this.context = context;
         this.arrays = arrays;
     }
 
     @Override
-    public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.layout_itemlist, parent, false);
-        return new myViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.titleTextView.setText(arrays.get(position).getTitle());
         holder.descTextView.setText(arrays.get(position).getDesc());
         Picasso.with(holder.itemView.getContext()).load(arrays.get(position).getUrl()).into(holder.imageUrlImageView);
@@ -41,12 +41,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return arrays.size();
     }
 
-    public static class myViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView descTextView;
         ImageView imageUrlImageView;
 
-        public myViewHolder(View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descTextView = itemView.findViewById(R.id.descTextView);
