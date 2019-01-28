@@ -1,7 +1,6 @@
 package com.example.admin.tomaszgurgul;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +52,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageUrlImageView = itemView.findViewById(R.id.imageUrlImageView);
         }
     }
-
-
 }
 
 

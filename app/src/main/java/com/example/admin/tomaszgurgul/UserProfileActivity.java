@@ -33,9 +33,10 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-Retrofit.Builder builder = new Retrofit.Builder()
-        .baseUrl("https://api.myjson.com/bins/")
-        .addConverterFactory(GsonConverterFactory.create());
+    //Retrofit api client
+    Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl("https://api.myjson.com/bins/")
+            .addConverterFactory(GsonConverterFactory.create());
     Retrofit retrofit = builder.build();
     ApiInterface apiInterface = retrofit.create(ApiInterface.class);
     Call<Array> call = apiInterface.getList();
@@ -47,6 +48,8 @@ Retrofit.Builder builder = new Retrofit.Builder()
         recyclerView = (RecyclerView) findViewById(R.id.jsonListRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        //fab - logout clear sharedprefs
         findViewById(R.id.logoutFAB).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,28 +59,28 @@ Retrofit.Builder builder = new Retrofit.Builder()
                 finish();
             }
         });
+
         showJson();
-
     }
- public void showJson() {
-            call.enqueue(new Callback<Array>() {
-                @Override
-                public void onResponse(Call<Array> call, Response<Array> response) {
-                    if (response.isSuccessful()) {
+
+    public void showJson() {
+        call.enqueue(new Callback<Array>() {
+            @Override
+            public void onResponse(Call<Array> call, Response<Array> response) {
+                if (response.isSuccessful()) {
                     arrays = response.body().getArray();
-                        recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), arrays);
-                        recyclerView.setAdapter(recyclerViewAdapter);
-                    }
+                    recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), arrays);
+                    recyclerView.setAdapter(recyclerViewAdapter);
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Array> call, Throwable t) {
-                    Toast.makeText(UserProfileActivity.this, "Error...", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<Array> call, Throwable t) {
+                Toast.makeText(UserProfileActivity.this, "Error...", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-    // logout user - clear sharedpreferences
     private void logout() {
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
