@@ -31,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
     private void login() {
         if (ValidatorHelper.checkEmail(emailEditText) && ValidatorHelper.checkPassword(passwordEditText)) {
             Intent userProfileIntent = new Intent(HomeActivity.this, UserProfileActivity.class);
@@ -50,6 +49,4 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
 }
