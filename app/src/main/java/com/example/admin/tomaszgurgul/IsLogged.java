@@ -9,13 +9,13 @@ public class IsLogged {
         this.preferences = preferences;
     }
 
-    public void SaveSharedPrefs() {
+    public void saveSharedPrefs() {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("loggedin", true);
         editor.apply();
     }
 
-    public void ClearSharedPrefs(){
+    public void clearSharedPrefs(){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("loggedin", false);
         editor.apply();

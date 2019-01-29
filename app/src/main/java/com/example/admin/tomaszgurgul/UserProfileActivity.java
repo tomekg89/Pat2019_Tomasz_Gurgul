@@ -26,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserProfileActivity extends AppCompatActivity {
     public final static String BASE_SERVER_URL = "http://192.168.0.1:8080";
-
     RecyclerView recyclerView;
     List<Array.Array_> arrays;
     RecyclerViewAdapter recyclerViewAdapter;
@@ -62,14 +61,12 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
                 isLogged = new IsLogged(preferences);
-                isLogged.ClearSharedPrefs();
+                isLogged.clearSharedPrefs();
                 Intent loginScreen = new Intent(UserProfileActivity.this, HomeActivity.class);
                 startActivity(loginScreen);
                 finish();
-
             }
         });
-
         showJson();
     }
 

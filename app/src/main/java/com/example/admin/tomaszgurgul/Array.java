@@ -1,13 +1,17 @@
 package com.example.admin.tomaszgurgul;
+
 import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 public class Array {
     @Expose
     private List<Array_> array = null;
+
     public List<Array_> getArray() {
         return array;
     }
+
     public void setArray(List<Array_> array) {
         this.array = array;
     }

@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
             finish();
             SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
             isLogged = new IsLogged(preferences);
-            isLogged.SaveSharedPrefs();
+            isLogged.saveSharedPrefs();
         } else {
             Toast.makeText(this, "Something is wrong :)", Toast.LENGTH_LONG).show();
         }

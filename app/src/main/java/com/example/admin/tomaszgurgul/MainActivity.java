@@ -15,17 +15,20 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         handler.removeCallbacksAndMessages(null);
     }
+
     public void splashScreen() {
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkIfLogged();
     }
+
     private void checkIfLogged() {
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         boolean isLogged = sharedPreferences.getBoolean("loggedin", false);
