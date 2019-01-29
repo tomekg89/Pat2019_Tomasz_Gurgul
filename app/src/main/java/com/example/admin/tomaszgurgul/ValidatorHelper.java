@@ -19,7 +19,7 @@ public class ValidatorHelper {
     public static boolean checkEmail(EditText emailEditText) {
         String emailInput = emailEditText.getText().toString().trim();
         if (emailInput.isEmpty()) {
-            emailEditText.setError("Email can't be empty");
+            emailEditText.setError("Email cant be empty");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
             emailEditText.setError("Please check if email adress is correct");
@@ -34,7 +34,7 @@ public class ValidatorHelper {
         Pattern PASSWORD_PATTERN = ValidatorHelper.PASSWORD_PATTERN;
         String passwordInput = passwordEditText.getText().toString().trim();
         if (passwordInput.isEmpty()) {
-            passwordEditText.setError("Password can't be empty");
+            passwordEditText.setError("Password cant be empty");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
             passwordEditText.setError("Password must have at least 8 characters with at least one Capital letter and one number!");

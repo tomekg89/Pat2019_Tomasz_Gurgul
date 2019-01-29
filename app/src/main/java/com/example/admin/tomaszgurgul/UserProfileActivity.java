@@ -1,5 +1,6 @@
 package com.example.admin.tomaszgurgul;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -24,9 +25,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserProfileActivity extends AppCompatActivity {
+    public final static String BASE_SERVER_URL = "http://192.168.0.1:8080";
+
     RecyclerView recyclerView;
     List<Array.Array_> arrays;
     RecyclerViewAdapter recyclerViewAdapter;
+    ProgressBar progressBar;
+    IsLogged isLogged;
 
     @Override
     public void onBackPressed() {
@@ -48,15 +53,20 @@ public class UserProfileActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.jsonListRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         //fab - logout clear sharedprefs
         findViewById(R.id.logoutFAB).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+                SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+                isLogged = new IsLogged(preferences);
+                isLogged.ClearSharedPrefs();
                 Intent loginScreen = new Intent(UserProfileActivity.this, HomeActivity.class);
                 startActivity(loginScreen);
                 finish();
+
             }
         });
 
@@ -71,6 +81,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     arrays = response.body().getArray();
                     recyclerViewAdapter = new RecyclerViewAdapter(getApplicationContext(), arrays);
                     recyclerView.setAdapter(recyclerViewAdapter);
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -79,11 +90,5 @@ public class UserProfileActivity extends AppCompatActivity {
                 Toast.makeText(UserProfileActivity.this, "Error...", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void logout() {
-        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear().apply();
     }
 }

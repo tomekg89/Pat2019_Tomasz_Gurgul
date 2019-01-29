@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ApiInterface {
-    @GET("lkqp0")
+    @GET("za8z4")
     Call<Array>getList();
 }

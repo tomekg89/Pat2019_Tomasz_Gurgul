@@ -14,7 +14,7 @@ public class HomeActivity extends AppCompatActivity {
 
     EditText emailEditText, passwordEditText;
     RecyclerView recyclerView;
-
+    IsLogged isLogged;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +36,13 @@ public class HomeActivity extends AppCompatActivity {
             Intent userProfileIntent = new Intent(HomeActivity.this, UserProfileActivity.class);
             startActivity(userProfileIntent);
             finish();
-            SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("loggedin", true);
-            editor.apply();
+            SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+            isLogged = new IsLogged(preferences);
+            isLogged.SaveSharedPrefs();
         } else {
             Toast.makeText(this, "Something is wrong :)", Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
